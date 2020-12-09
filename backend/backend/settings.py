@@ -25,7 +25,7 @@ SECRET_KEY = 's2b-b12qo=1qz_%3z#af#*$a+(r+$7u9vo0l7aj8_-sc61s_i7'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost','.kingfish404.cn']
 
 
 # Application definition
