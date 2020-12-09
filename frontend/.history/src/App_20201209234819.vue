@@ -1,0 +1,23 @@
+<template>
+  <div id="app">
+    <NavMenu></NavMenu>
+    <div style="font-size:18px">Welcome To GanFan Team</div>
+    <div style= 'font-size: 12px;'>
+  </div>
+</template>
+
+<script>
+
+import NavMenu from './components/NavMenu.vue'
+
+export default {
+  name: 'App',
+  components: {
+    NavMenu
+  }
+}
+</script>
+
+<style>
+
+</style>
