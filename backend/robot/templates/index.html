@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TestPage</title>
+</head>
+<style>
+    * {
+        text-align: center;
+    }
+
+    .QA {
+        height: 400px;
+        max-width: 300px;
+        overflow: auto;
+        background-color: rgb(238, 226, 226);
+        margin: 2em auto;
+        padding: 5px;
+    }
+    .meAsk {
+        text-align: right;
+        margin: 0;
+    }
+
+    .robotAns {
+        text-align: left;
+        margin: 0;
+    }
+</style>
+
+<body>
+    <div>
+        <h2>后端测试演示用</h2>
+        <div id="A" class="QA">
+            <p class="meAsk">提问</p>
+            <p class="robotAns">回答</p>
+        </div>
+        <div>
+            <input id="Q" class="question" type="text">
+            <button class="askBtn" onclick="msgAsk()">提问</button>
+        </div>
+    </div>
+</body>
+<script>
+    function msgAsk() {
+        var question = document.getElementById("Q").value;
+        var A = document.getElementById("A");
+        A.innerHTML = A.innerHTML + "<p class='meAsk'>ME: " + question + "</p>";
+
+        var xhr = new XMLHttpRequest();
+
+        xhr.onreadystatechange = handleStateChange = function () {
+            // 通信成功时，状态值为4
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    responseJson = JSON.parse(xhr.responseText);
+                    console.log(responseJson);
+                    A.innerHTML = A.innerHTML + "<p class='robotAns'>ROBOT: " + responseJson["data"]["answer"] + "</p>";
+                } else {
+                    console.error(xhr.statusText);
+                }
+            }
+        }
+
+        xhr.onerror = function (e) {
+            console.error(xhr.statusText);
+        };
+        xhr.open('POST', '/msgAsk', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.send("question="+question);
+    }
+</script>
+
+</html>
