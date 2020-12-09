@@ -1,27 +1,33 @@
 # frontend
 
-## Project setup
+## 项目设置
+### 环境配置
+1. vue 2.6.12
+2. vue/cli 4.5.9
+注意：vue/cli最新版本安装的先要条件在[官网](https://cli.vuejs.org/guide/installation.html)可查
+
+### 安装依赖
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### 编译和重新加载
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
+### 编译和缩小用于生产
 ```
 npm run build
 ```
 
-### Lints and fixes files
+### Lints和修复文件
 ```
 npm run lint
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### 自定义配置项
+查看 [Configuration Reference](https://cli.vuejs.org/config/).
 
 ## 文档说明
  frontend目录规范
