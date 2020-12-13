@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from . import utils
 
 # Create your views here.
 
@@ -19,17 +20,16 @@ def msgAsk(request):
     elif(request.method == 'POST'):
         json['code'] = 200
         json['msg'] = "SUCCESS"
-        
+
         try:
             # 主要的语言处理函数
             question = username = request.POST.get('question')
             if question == None:
                 question = "No msg"
 
-            
-
             # answer 为回复
-            answer = "Hello,q="+question
+            answer = utils.chatterBotRepeat(question)
+
         except Exception as ex:
             question = ex.message
         

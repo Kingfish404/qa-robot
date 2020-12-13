@@ -11,31 +11,64 @@
         text-align: center;
     }
 
+    #Q {
+        text-align: left;
+        min-height: 2em;
+        min-width: 20em;
+    }
+    .askBtn{
+        min-height: 2em;
+    }
+
     .QA {
         height: 400px;
         max-width: 300px;
         overflow: auto;
         background-color: rgb(238, 226, 226);
         margin: 2em auto;
-        padding: 5px;
+        padding: 50px;
     }
+
+    .theMsg {
+        display: block;
+        width: 100%;
+    }
+
     .meAsk {
-        text-align: right;
+        text-align: left;
+        float: right;
         margin: 0;
     }
 
     .robotAns {
         text-align: left;
         margin: 0;
+        float: left;
+        background-color: #66ccff;
     }
+
+    .meAsk,
+    .robotAns {
+        width: fit-content;
+        min-width: 40%;
+        border: 1px solid black;
+        border-radius: 0.5em;
+        margin: 5px auto;
+        padding: 5px;
+    }
+
 </style>
 
 <body>
     <div>
         <h2>后端测试演示用</h2>
         <div id="A" class="QA">
-            <p class="meAsk">提问</p>
-            <p class="robotAns">回答</p>
+            <div class="theMsg">
+                <p class="meAsk">提问</p>
+            </div>
+            <div class="theMsg">
+                <p class="robotAns">回答</p>
+            </div>
         </div>
         <div>
             <input id="Q" class="question" type="text">
@@ -46,30 +79,34 @@
 <script>
     function msgAsk() {
         var question = document.getElementById("Q").value;
-        var A = document.getElementById("A");
-        A.innerHTML = A.innerHTML + "<p class='meAsk'>ME: " + question + "</p>";
+        if (question != "") {
+            var A = document.getElementById("A");
+            A.innerHTML = A.innerHTML + "<div class='theMsg'><p class='meAsk'>Q: " + question + "</p></div>";
 
-        var xhr = new XMLHttpRequest();
+            var xhr = new XMLHttpRequest();
 
-        xhr.onreadystatechange = handleStateChange = function () {
-            // 通信成功时，状态值为4
-            if (xhr.readyState === 4) {
-                if (xhr.status === 200) {
-                    responseJson = JSON.parse(xhr.responseText);
-                    console.log(responseJson);
-                    A.innerHTML = A.innerHTML + "<p class='robotAns'>ROBOT: " + responseJson["data"]["answer"] + "</p>";
-                } else {
-                    console.error(xhr.statusText);
+            xhr.onreadystatechange = handleStateChange = function () {
+                // 通信成功时，状态值为4
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        responseJson = JSON.parse(xhr.responseText);
+                        console.log(responseJson);
+                        A.innerHTML = A.innerHTML + "<div class='theMsg'><p class='robotAns'>Answer: " + responseJson["data"]["answer"] + "</p></div>";
+                        document.getElementById("Q").value = "";
+                    } else {
+                        console.error(xhr.statusText);
+                    }
                 }
             }
-        }
 
-        xhr.onerror = function (e) {
-            console.error(xhr.statusText);
-        };
-        xhr.open('POST', '/msgAsk', true);
-        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-        xhr.send("question="+question);
+            xhr.onerror = function (e) {
+                console.error(xhr.statusText);
+            };
+            xhr.open('POST', '/msgAsk', true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.send("question=" + question);
+            A.scrollTop = A.scrollHeight;
+        }
     }
 </script>
 

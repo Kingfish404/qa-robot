@@ -25,4 +25,19 @@ python3 manage.py runserver
 ## 依赖
 
 * django
-* chatterbot
+* chatterbot - 建议从源代码安装 https://github.com/gunthercox/ChatterBot
+* chatterbot-corpus
+* spacy
+
+spacy需要安装en库
+```
+python3 -m spacy download en
+```
+
+源代码安装方式
+```shell
+git clone 目标url
+cd 目标文件夹
+python3 setup.py build
+python3 setup.py install
+```
