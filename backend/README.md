@@ -25,14 +25,10 @@ python3 manage.py runserver
 ## 依赖
 
 * django
-* bf4
+* bs4
 * jieba
 * numpy
-
-spacy需要安装en库
-```
-python3 -m spacy download en
-```
+* gensim
 
 源代码安装方式
 ```shell

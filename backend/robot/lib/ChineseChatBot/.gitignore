@@ -6,3 +6,4 @@ __pycache__/*
 kg_index/medical/__pycache__/*
 kg_index/medical/entity_node/*
 kg_index/medical/relation_edge/*
+config/chat_log.txt

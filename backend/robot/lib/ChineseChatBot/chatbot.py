@@ -17,10 +17,10 @@ class ChatBot:
 
     @classmethod
     def to_log(cls, question, answer):
-        with open('config/chat_log.txt', 'a', encoding='utf-8') as f:
-            log_content = f'Q:{question}---A:{answer} \n'
-            print(log_content)
-            f.write(log_content)
+        log_content = f'Q:{question}---A:{answer} \n'
+        print(log_content)
+        # with open('config/chat_log.txt', 'a', encoding='utf-8') as f:
+        #     f.write(log_content)
     
     def local_start(self):
         """本地聊天模式"""
@@ -39,5 +39,5 @@ class ChatBot:
     def repeat(self,question):
         """回复消息"""
         answer = self.layer_filter.get_answer(question)
-        # self.to_log(question,answer)  
+        self.to_log(question,answer)  
         return answer
