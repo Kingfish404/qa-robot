@@ -25,3 +25,9 @@ AI聊天机器人项目，可以判断是语音还是文字，获取内容，内
 ## 待办事项
 
 语义库的准备
+
+## 致谢
+
+非常感谢以下开源项目，我们参考了以下项目的代码和设计
+
+* [https://github.com/GoWeiXH/ChineseChatBot](https://github.com/GoWeiXH/ChineseChatBot)
