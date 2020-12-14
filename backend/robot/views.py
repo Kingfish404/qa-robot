@@ -37,5 +37,6 @@ def msgAsk(request):
     else:
         json['code'] = 404
         json['msg'] = "FAILD:未执行功能"
-
-    return JsonResponse(json)
+    response = JsonResponse(json)
+    response['Access-Control-Allow-Origin'] = '*'
+    return response
