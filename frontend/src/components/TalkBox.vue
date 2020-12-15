@@ -3,14 +3,14 @@
     <div id="dialogbox">
       <div id="content">
         <div id="content_top">
-          <div id="nowDiv"></div>
-          <div id="state"></div>
+          <div id="nowDiv">{{this.date}}</div>
+          <div id="state">当前状态：</div>
         </div>
         <div class="content_main">
-          <ul v-for="QA in qa" v-bind:key="QA.questions" style="list-style: none;margin:10px">
+          <ul v-for="QA in qa" v-bind:key="QA.questions" style="list-style: none;margin:0;">
             <li class="head right"></li>
             <li class="msgcontent right">{{ QA.questions }}</li>
-            <div style="clear: both"></div>
+            <div style="clear: both;"></div>
             <li v-if="QA.answers" class="head left"></li>
             <li v-if="QA.answers" class="msgcontent left">{{ QA.answers }}</li>
             <div style="clear: both"></div>
@@ -82,7 +82,8 @@
 
 .content_main {
   height: 550px;
-  overflow-y: scroll;
+  /* overflow-y: scroll; */
+  overflow: auto;
 }
 
 #userhead {
@@ -93,15 +94,21 @@
   margin: 5px;
 }
 
+
+
 .msgcontent {
   width: auto;
-  max-width: 250px;
+  min-width: 30px;
+  min-height: 30px;
+  max-width: 500px;
   height: auto;
   word-break: break-all;
   margin: 5px;
   padding: 3px;
   border-radius: 5px;
 }
+
+
 
 .left {
   float: left;
@@ -115,21 +122,23 @@
   background-color: yellowgreen;
 }
 
+.head {
+  border: 1px solid black;
+  border-radius: 50%;
+  height: 30px;
+  width: 30px;
+  padding: 3px;
+  margin: 5px;
+  background-color:white;
+}
+
 .infinite-list-item {
   display: block;
   height: 500px;
   margin-top: 10px;
 }
 
-.head {
-  border: 1px solid black;
-  border-radius: 50%;
-  height: 30px;
-  width: 30px;
-  background-color: white;
-  /* position: relative;;
-    right:5px; */
-}
+
 
 .talk_content {
   border: 1px solid black;
@@ -225,6 +234,16 @@ export default {
       answer: "",
     };
   },
+  computed:{
+    date:function(){
+       var date = new Date(); //日期对象
+       var now = "";
+       now = date.getFullYear() + "年"; //读英文就行了
+       now = now + (date.getMonth() + 1) + "月"; //取月的时候取的是当前月-1如果想取当前月+1就可以了
+       now = now + date.getDate() + "日";
+       return now;
+    }
+  },
   methods: {
     clickMe(event) {
       document.getElementById("state").innerHTML =
@@ -249,18 +268,4 @@ export default {
     },
   },
 };
-
-window.onload = function () {
-  show();
-};
-
-function show() {
-  var date = new Date(); //日期对象
-  var now = "";
-  now = date.getFullYear() + "年"; //读英文就行了
-  now = now + (date.getMonth() + 1) + "月"; //取月的时候取的是当前月-1如果想取当前月+1就可以了
-  now = now + date.getDate() + "日";
-  document.getElementById("nowDiv").innerHTML = now; //div的html是now这个字符串
-  setTimeout("show()", 1000); //设置过1000毫秒就是1秒，调用show方法
-}
 </script> 
