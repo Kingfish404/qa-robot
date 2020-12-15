@@ -6,13 +6,19 @@
                     <div id="nowDiv"></div>
                     <div id="state"></div>
                 </div>
-                <div class="content_main">
-                    <ul v-for="QA in qa" v-bind:key="QA" style="list-style: none;">
-                        <li class="msgcontent right">{{QA.questions}}</li>
-                        <div style="clear:both"></div>
-                        <li class="msgcontent left">{{QA.answers}}</li>
-                        <div style="clear:both"></div>
-                    </ul>
+                <div id="content_main">
+                    <div class="infinite-list" v-infinite-scroll="load" style="overflow:auto">
+                        <div v-for="QA in qa" v-bind:key="QA" class="infinite-list-item">
+                           <div style="display:flex; padding:10px">
+                               <div class="head"></div>
+                               <div class="talk_content">{{QA.questions}}</div>
+                           </div>
+                           <div style="display:flex; padding:10px;">
+                               <div class="talk_content">{{QA.answers}}</div>
+                               <div class="head"></div>
+                           </div>
+                        </div>
+                    </div>
                 </div>   
             </div>
             <div id="functionbuttons">
@@ -26,7 +32,7 @@
             </div>
         </div>
         <div>
-            <button @click="sendquestion" id="sendbutton">发送</button>
+            <button  @click="sendquestion()" id="sendbutton">发送</button>
         </div>
     </div>
 </template>
@@ -58,6 +64,7 @@
     margin-right: 5px;
     height: 86%;
     border:1px solid black;
+    overflow:auto;
 }
 
 #content_top{
@@ -65,38 +72,8 @@
     height:40px;
 }
 
-.content_main{
-    height:550px;
-    overflow-y:scroll;
-}
-
-.msgcontent{
-    width: auto;
-    max-width: 250px;
-    height: auto;
-    word-break: break-all;
-    margin: 5px;
-    padding: 3px;
-    border-radius: 5px;
-    
-}
-
-.left{
-    float: left;
-    text-align: left;
-    background-color: lightgrey;
-}
-
-.right{
-    float: right;
-    text-align: right;
-    background-color: yellowgreen;
-}
-
 .infinite-list-item{
-    display: block;
-    height:500px;
-    margin-top: 10px;
+     margin-top: 10px;
 }
 
 .head{
@@ -104,8 +81,6 @@
     border-radius: 50%;
     height: 50px;
     width: 50px;
-    /* position: relative;;
-    right:5px; */
 }
 
 .talk_content{
@@ -116,8 +91,6 @@
     margin-right:10px;
     /* font-size: 25px; */
     padding:10px;
-    /* position: relative;;
-    right:60px; */
 }
 
 
@@ -202,15 +175,15 @@ import Qs from 'qs';
             qa:[],
             respond:"",
             question:"",
-            answer:"",
+            answer:""
         }
     },
     methods: {
         clickMe(event) {
              document.getElementById("state").innerHTML = "当前状态："+ event.currentTarget.value;
-        } ,  
+        } ,
 
-        sendquestion(){
+        sendquestion() {
             axios({
                 method:"post",
                 url:"http://server.kingfish404.cn/msgAsk",
@@ -222,7 +195,7 @@ import Qs from 'qs';
                  this.answer = this.respond.data.answer;
                  this.qa.push({questions:this.question,answers:this.answer});
             })
-        }      
+        }
     }
 
  }
@@ -240,4 +213,6 @@ function show(){
     document.getElementById("nowDiv").innerHTML = now; //div的html是now这个字符串 
     setTimeout("show()",1000); //设置过1000毫秒就是1秒，调用show方法 
 }
+
+
 </script> 
