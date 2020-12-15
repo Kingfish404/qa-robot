@@ -10,7 +10,7 @@
               <div class="box" id="BOX">
                   <div style='font-size:50px; text-align:center'>Welcome To GanFan Team</div>
                   <TalkBox></TalkBox>
-              </div>  
+              </div>
               <div class="sep20"></div>
           </div>
       </div>
@@ -32,6 +32,16 @@ export default {
 </script>
 
 <style>
+html, body{
+    widows: 100%;
+    height: 100%;
+}
+#app{
+    width: 100%;
+    height: 100%;
+    background-image: url(/static/img/shadow_light.png);
+    background-color: #e2e2e2;
+}
 #Top{
   padding-right:300px;
   padding-left:300px;
@@ -40,8 +50,6 @@ export default {
 
 #Wrapper {
     text-align: center;
-    background-color: #e2e2e2;
-    background-image: url(/static/img/shadow_light.png);
     background-repeat: repeat-x;
 }
 
@@ -64,7 +72,7 @@ export default {
 
 #Main {
     width: auto;
-    margin: 0 360px 0 70px;
+    max-width: 760px;
 }
 
 .sep20 {
