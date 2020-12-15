@@ -70,6 +70,13 @@
     overflow-y:scroll;
 }
 
+#userhead{
+    width:50px;
+    height:50px;
+    border-radius: 50%;
+    border: 
+}
+
 .msgcontent{
     width: auto;
     max-width: 250px;
@@ -78,7 +85,6 @@
     margin: 5px;
     padding: 3px;
     border-radius: 5px;
-    
 }
 
 .left{
