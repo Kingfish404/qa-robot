@@ -7,10 +7,12 @@
           <div id="state"></div>
         </div>
         <div class="content_main">
-          <ul v-for="QA in qa" v-bind:key="QA" style="list-style: none">
+          <ul v-for="QA in qa" v-bind:key="QA.questions" style="list-style: none;margin:10px">
+            <li class="head right"></li>
             <li class="msgcontent right">{{ QA.questions }}</li>
             <div style="clear: both"></div>
-            <li class="msgcontent left">{{ QA.answers }}</li>
+            <li v-if="QA.answers" class="head left"></li>
+            <li v-if="QA.answers" class="msgcontent left">{{ QA.answers }}</li>
             <div style="clear: both"></div>
           </ul>
         </div>
@@ -28,7 +30,12 @@
       </div>
       <div id="inputbox">
         <div style="width: 450px">
-          <input v-model="question" type="text" id="input" />
+          <el-input
+            id="input"
+            placeholder="请输入内容"
+            v-model="question"
+            clearable>
+          </el-input>
         </div>
         <b-button @click="clickMe" id="voice"></b-button>
       </div>
@@ -82,6 +89,8 @@
   width: 50px;
   height: 50px;
   border-radius: 50%;
+  padding: 3px;
+  margin: 5px;
 }
 
 .msgcontent {
@@ -115,8 +124,9 @@
 .head {
   border: 1px solid black;
   border-radius: 50%;
-  height: 50px;
-  width: 50px;
+  height: 30px;
+  width: 30px;
+  background-color: white;
   /* position: relative;;
     right:5px; */
 }
@@ -220,18 +230,21 @@ export default {
       document.getElementById("state").innerHTML =
         "当前状态：" + event.currentTarget.value;
     },
-
-    sendquestion() {
+   sendquestion() {
+      var q=this.question;
+      this.qa.push({questions:q,answers:""});
+      this.question=""
       axios({
         method: "post",
         url: "http://server.kingfish404.cn/msgAsk",
         data: Qs.stringify({
-          question: this.question,
+          question: q,
         }),
       }).then((res) => {
         this.respond = Qs.parse(res.data);
         this.answer = this.respond.data.answer;
-        this.qa.push({ questions: this.question, answers: this.answer });
+        this.qa[this.qa.length-1].answers = this.answer;
+        this.answer="";
       });
     },
   },
