@@ -3,14 +3,18 @@
     <div id="dialogbox">
       <div id="content">
         <div id="content_top">
-          <div id="nowDiv">{{this.date}}</div>
+          <div id="nowDiv">{{ this.date }}</div>
           <div id="state">当前状态：</div>
         </div>
         <div class="content_main">
-          <ul v-for="QA in qa" v-bind:key="QA.questions" style="list-style: none;margin:0;">
+          <ul
+            v-for="QA in qa"
+            v-bind:key="QA.questions"
+            style="list-style: none; margin: 0"
+          >
             <li class="head right"></li>
             <li class="msgcontent right">{{ QA.questions }}</li>
-            <div style="clear: both;"></div>
+            <div style="clear: both"></div>
             <li v-if="QA.answers" class="head left"></li>
             <li v-if="QA.answers" class="msgcontent left">{{ QA.answers }}</li>
             <div style="clear: both"></div>
@@ -29,15 +33,18 @@
         >
       </div>
       <div id="inputbox">
-        <div style="width: 450px">
+        <div class="inputPlace">
           <el-input
             id="input"
             placeholder="请输入内容"
             v-model="question"
-            clearable>
+            clearable
+          >
           </el-input>
         </div>
-        <b-button @click="clickMe" id="voice"></b-button>
+        <b-button @click="clickMe" id="voice">
+        <svg t="1608094125767" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1319" width="200" height="200"><path d="M779.202 472.798c-15.464 0-28 12.536-28 28C751.202 633.246 643.447 741 511 741S270.798 633.246 270.798 500.798c0-15.464-12.536-28-28-28s-28 12.536-28 28c0 79.118 30.811 153.501 86.755 209.446 46.403 46.402 105.495 75.492 169.447 84.073A300.628 300.628 0 0 0 511 797c13.495 0 26.848-0.918 40-2.683 63.953-8.581 123.044-37.67 169.446-84.073 55.945-55.945 86.756-130.328 86.756-209.446 0-15.464-12.536-28-28-28zM471 803.317v77.389c0 18.446 17.909 33.399 40 33.399s40-14.953 40-33.399v-77.389a359.352 359.352 0 0 1-40 2.24c-13.495 0-26.848-0.766-40-2.24z" p-id="1320"></path><path d="M511 672c106.972 0 194-87.028 194-194V292c0-106.972-87.028-194-194-194s-194 87.028-194 194v186c0 106.972 87.028 194 194 194zM373 433V292c0-7.138 0.545-14.151 1.595-21 10.144-66.163 67.45-117 136.405-117 76.094 0 138 61.907 138 138v186c0 76.094-61.906 138-138 138-76.093 0-138-61.906-138-138v-45z" p-id="1321"></path><path d="M569 299c0-15.464-12.536-28-28-28H384.595A138.514 138.514 0 0 0 383 292v35h158c15.464 0 28-12.536 28-28zM569 405c0-15.464-12.536-28-28-28H383v56h158c15.464 0 28-12.536 28-28z" p-id="1322"></path></svg>
+        </b-button>
       </div>
     </div>
     <div>
@@ -48,14 +55,17 @@
 
 <style scoped>
 #robotbox {
+  height:90%;
+  padding-top:2.5em;
+  padding-bottom: 2em;
   background-color: var(--box-background-color);
   border-top-left-radius: 3px;
   border-top-right-radius: 3px;
 }
 
 .inner {
-  padding-left: 50px;
-  padding-right: 50px;
+  padding-left: 2em;
+  padding-right: 2em;
   padding-bottom: 10px;
   font-size: 14px;
   line-height: 150%;
@@ -63,15 +73,15 @@
 }
 
 #dialogbox {
+  height:100%;
   border: 1px solid black;
-  height: 720px;
   padding-top: 5px;
 }
 
 #content {
   margin-left: 5px;
   margin-right: 5px;
-  height: 86%;
+  height: 81%;
   border: 1px solid black;
 }
 
@@ -81,7 +91,8 @@
 }
 
 .content_main {
-  height: 550px;
+  min-height: 400px;
+  height: 80%;
   /* overflow-y: scroll; */
   overflow: auto;
 }
@@ -94,8 +105,6 @@
   margin: 5px;
 }
 
-
-
 .msgcontent {
   width: auto;
   min-width: 30px;
@@ -107,8 +116,6 @@
   padding: 3px;
   border-radius: 5px;
 }
-
-
 
 .left {
   float: left;
@@ -129,7 +136,7 @@
   width: 30px;
   padding: 3px;
   margin: 5px;
-  background-color:white;
+  background-color: white;
 }
 
 .infinite-list-item {
@@ -137,8 +144,6 @@
   height: 500px;
   margin-top: 10px;
 }
-
-
 
 .talk_content {
   border: 1px solid black;
@@ -156,9 +161,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-top: 5px;
-  margin-left: 5px;
-  margin-right: 5px;
+  margin: 5px 1em;
   height: 7%;
 }
 
@@ -180,21 +183,21 @@
 #input {
   display: block;
   height: 100%;
-  width: 97%;
+  width:80%;
   border-radius: 25px;
   padding-left: 20px;
   outline: none;
 }
 
 #voice {
-  width: 100px;
+  width: 20%;
   border: 2px solid black;
   margin-left: 7px;
   display: block;
-  height: 100%;
   border-radius: 25px;
   outline: none;
 }
+
 
 #sendbutton {
   display: block;
@@ -217,6 +220,10 @@
   font-weight: bold;
   height: 30px;
 }
+
+.inputPlace{
+    width:80%;
+}
 </style>
 
 
@@ -234,25 +241,25 @@ export default {
       answer: "",
     };
   },
-  computed:{
-    date:function(){
-       var date = new Date(); //日期对象
-       var now = "";
-       now = date.getFullYear() + "年"; //读英文就行了
-       now = now + (date.getMonth() + 1) + "月"; //取月的时候取的是当前月-1如果想取当前月+1就可以了
-       now = now + date.getDate() + "日";
-       return now;
-    }
+  computed: {
+    date: function () {
+      var date = new Date(); //日期对象
+      var now = "";
+      now = date.getFullYear() + "年"; //读英文就行了
+      now = now + (date.getMonth() + 1) + "月"; //取月的时候取的是当前月-1如果想取当前月+1就可以了
+      now = now + date.getDate() + "日";
+      return now;
+    },
   },
   methods: {
     clickMe(event) {
       document.getElementById("state").innerHTML =
         "当前状态：" + event.currentTarget.value;
     },
-   sendquestion() {
-      var q=this.question;
-      this.qa.push({questions:q,answers:""});
-      this.question=""
+    sendquestion() {
+      var q = this.question;
+      this.qa.push({ questions: q, answers: "" });
+      this.question = "";
       axios({
         method: "post",
         url: "http://server.kingfish404.cn/msgAsk",
@@ -262,8 +269,8 @@ export default {
       }).then((res) => {
         this.respond = Qs.parse(res.data);
         this.answer = this.respond.data.answer;
-        this.qa[this.qa.length-1].answers = this.answer;
-        this.answer="";
+        this.qa[this.qa.length - 1].answers = this.answer;
+        this.answer = "";
       });
     },
   },
