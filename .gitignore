@@ -3,3 +3,5 @@
 temp
 frontend/.history/
 .history/
+.history/*
+.history/*/*
