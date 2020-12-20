@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+<<<<<<< HEAD
       <div id="Wrapper">
           <div class="content">
             <div id="Leftbar"></div>
@@ -10,9 +11,21 @@
                   <TalkBox></TalkBox>
               </div>
               <div class="sep20"></div>
+=======
+    <div if="Top"><NavMenu></NavMenu></div>
+    <div id="Wrapper">
+      <div class="content">
+        <div id="Leftbar"></div>
+        <div id="Rightbar"></div>
+        <div id="Main">
+          <div class="box" id="BOX">
+            <TalkBox></TalkBox>
+>>>>>>> fd69ef590105424f7682a895451764602a2ab2aa
           </div>
+          <div class="sep20"></div>
+        </div>
       </div>
-    </div>  
+    </div>
   </div>
 </template>
 
@@ -20,7 +33,7 @@
 import TalkBox from './components/TalkBox.vue'
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
     TalkBox
   }
@@ -28,42 +41,45 @@ export default {
 </script>
 
 <style>
-html, body{
-    widows: 100%;
-    height: 100%;
+html,
+body {
+  width: 100%;
+  height: 100%;
+  position: fixed;
 }
-#app{
-    width: 100%;
-    height: 100%;
-    background-image: url(/static/img/shadow_light.png);
-    background-color: #e2e2e2;
+#app {
+  width: 100%;
+  height: 100%;
 }
-#Top{
-  padding-right:300px;
-  padding-left:300px;
+#Top {
+  padding-right: 300px;
+  padding-left: 300px;
   background-color: white;
 }
 
 #Wrapper {
-    text-align: center;
-    background-repeat: repeat-x;
+  width: 50%;
+  height: 100%;
+  text-align: center;
+  background-repeat: repeat-x;
+  float: right;
 }
 
 .content {
-    min-width: 600px;
-    max-width: 1100px;
-    margin: 0 auto;
+  max-width: 1100px;
+  margin: 0 auto;
+  height:100%;
 }
 
 #Leftbar {
-    width: 0;
-    float: left;
+  width: 0;
+  float: left;
 }
 
 #Rightbar {
-    width: 270px;
-    float: right;
-    margin-right: 20px;
+  width: 270px;
+  float: right;
+  margin-right: 20px;
 }
 
 #Main {
@@ -72,8 +88,11 @@ html, body{
     max-width: 760px;
 }
 
-.sep20 {
-    height: 20px;
+.box {
+  background-color: var(--box-background-color);
+  border-radius: var(--box-border-radius);
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid var(--box-border-color);
 }
 
 .box {
@@ -84,7 +103,10 @@ html, body{
     width:33em;
 }
 
-#BOX{
-  padding:0;
+@media screen and (max-width: 960px) {
+  #Wrapper {
+    width:100%;
+    position: absolute;
+  }
 }
 </style>

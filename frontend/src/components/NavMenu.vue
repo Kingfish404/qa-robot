@@ -1,40 +1,28 @@
 <template>
     <b-navbar>
         <template slot="brand">
-            <b-navbar-item tag="router-link" :to="{ path: '/' }">
-                <img
-                    src="https://raw.githubusercontent.com/buefy/buefy/dev/static/img/buefy-logo.png"
-                    alt="Lightweight UI components for Vue.js based on Bulma"
-                >
-            </b-navbar-item>
         </template>
         <template slot="start">
             <b-navbar-item href="#">
-                Home
+                QARobot
             </b-navbar-item>
             <b-navbar-item href="#">
-                Documentation
+                文档
             </b-navbar-item>
-            <b-navbar-dropdown label="Info">
+            <b-navbar-dropdown label="更多">
                 <b-navbar-item href="#">
-                    About
+                    关于
                 </b-navbar-item>
                 <b-navbar-item href="#">
-                    Contact
+                    联系
                 </b-navbar-item>
             </b-navbar-dropdown>
         </template>
 
         <template slot="end">
             <b-navbar-item tag="div">
-                <div class="buttons">
-                    <a class="button is-primary">
-                        <strong>Sign up</strong>
-                    </a>
-                    <a class="button is-light">
-                        Log in
-                    </a>
-                </div>
+                <h1>健康问答机器人</h1>
+
             </b-navbar-item>
         </template>
     </b-navbar>
