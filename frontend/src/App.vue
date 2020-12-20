@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-      <div if="Top"><NavMenu></NavMenu></div>
       <div id="Wrapper">
           <div class="content">
             <div id="Leftbar"></div>
@@ -8,7 +7,6 @@
             <div id="Main">    
               <div class="sep20"></div>
               <div class="box" id="BOX">
-                  <div style='font-size:50px; text-align:center'>Welcome To GanFan Team</div>
                   <TalkBox></TalkBox>
               </div>
               <div class="sep20"></div>
@@ -19,13 +17,11 @@
 </template>
 
 <script>
-import NavMenu from './components/NavMenu.vue'
 import TalkBox from './components/TalkBox.vue'
 
 export default {
   name: 'App',
   components: {
-    NavMenu,
     TalkBox
   }
 }
@@ -71,6 +67,7 @@ html, body{
 }
 
 #Main {
+    margin: 0 auto;
     width: auto;
     max-width: 760px;
 }
@@ -84,6 +81,7 @@ html, body{
     border-radius: var(--box-border-radius);
     box-shadow: 0 2px 3px rgba(0,0,0,.1);
     border-bottom: 1px solid var(--box-border-color);
+    width:33em;
 }
 
 #BOX{

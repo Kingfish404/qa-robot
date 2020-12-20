@@ -4,7 +4,7 @@
       <div id="content">
         <div id="content_top">
           <div id="nowDiv">{{this.date}}</div>
-          <div id="state">当前状态：</div>
+          <div id="state">当前状态</div>
         </div>
         <div class="content_main">
           <ul v-for="QA in qa" v-bind:key="QA.questions" style="list-style: none;margin:0;">
@@ -18,15 +18,9 @@
         </div>
       </div>
       <div id="functionbuttons">
-        <b-button @click="clickMe($event)" class="fbutton" value="问症状"
-          >问症状</b-button
-        >
-        <b-button @click="clickMe($event)" class="fbutton" value="开始聊天"
-          >开始聊天</b-button
-        >
-        <b-button @click="clickMe($event)" class="fbutton" value="更多功能"
-          >更多功能</b-button
-        >
+        <el-button type="primary" round plain @click="clickMe($event)">问症状</el-button>
+        <el-button type="primary" round plain @click="clickMe($event)">开始聊天</el-button>
+        <el-button type="primary" round plain @click="clickMe($event)">更多功能</el-button>
       </div>
       <div id="inputbox">
         <div style="width: 450px">
@@ -36,12 +30,15 @@
             v-model="question"
             clearable>
           </el-input>
+          <!-- <input type="file" @change="onChange($event)"> -->
         </div>
-        <b-button @click="clickMe" id="voice"></b-button>
+        <!-- <b-button @click="gettoken()" id="voice"></b-button> -->
+         <el-button round @click="gettoken()" id="voice"></el-button>
       </div>
     </div>
     <div>
-      <button @click="sendquestion" id="sendbutton">发送</button>
+      <el-button type="primary" id="sendbutton" @click="sendquestion" plain>发送</el-button>
+      <!-- <button @click="sendquestion" id="sendbutton">发送</button> -->
     </div>
   </div>
 </template>
@@ -54,8 +51,8 @@
 }
 
 .inner {
-  padding-left: 50px;
-  padding-right: 50px;
+  /* padding-left: 50px;
+  padding-right: 50px; */
   padding-bottom: 10px;
   font-size: 14px;
   line-height: 150%;
@@ -63,8 +60,7 @@
 }
 
 #dialogbox {
-  border: 1px solid black;
-  height: 720px;
+  border-bottom: 1px solid black;
   padding-top: 5px;
 }
 
@@ -186,21 +182,14 @@
   outline: none;
 }
 
-#voice {
-  width: 100px;
-  border: 2px solid black;
-  margin-left: 7px;
-  display: block;
-  height: 100%;
-  border-radius: 25px;
-  outline: none;
+#voice{
+  margin-left:1.5em;
 }
 
 #sendbutton {
   display: block;
-  margin-top: 5px;
-  width: 100%;
-  height: 50px;
+  margin:5px 5px 5px 5px;
+  width: 98%;
 }
 
 #nowDiv {
@@ -224,6 +213,7 @@
 import axios from "axios";
 import Qs from "qs";
 
+
 export default {
   components: {},
   data() {
@@ -232,6 +222,7 @@ export default {
       respond: "",
       question: "",
       answer: "",
+      speech:""
     };
   },
   computed:{
@@ -249,6 +240,7 @@ export default {
       document.getElementById("state").innerHTML =
         "当前状态：" + event.currentTarget.value;
     },
+
    sendquestion() {
       var q=this.question;
       this.qa.push({questions:q,answers:""});
@@ -266,6 +258,52 @@ export default {
         this.answer="";
       });
     },
+
+    gettoken(){
+      axios({
+        method: "post",
+        url: "https://vop.baidu.com/pro_api",
+        headers:{"Content-Type":"application/json"},
+        data:{
+           "format":"m4a",
+           "rate":16000,
+           "dev_pid":80001,
+           "channel":1,
+           "token":"25.ae1d54b6eb6644c8318c25a2664fafd4.315360000.1923800218.282335-23182636",
+           "cuid":"baidu_workshop",
+           "len":77883,
+           "speech":this.speech
+        },
+      }).then((res) => {
+        alert("ok");
+        console.log(res);
+      });
+
+    },
+
+
+
+    onChange(e) {
+      var file = e.target.files[0];
+      var reader = new FileReader();
+      reader.onload = function (e) {
+        //console.log(e.target.result)
+        let Base64 = require('js-base64').Base64
+        var result = Base64.encode(e.target.result)
+        this.speech= result;
+        console.log(this.speech);
+
+      };
+
+      reader.readAsBinaryString(file);
+    }
+
+
+
+
   },
 };
+
 </script> 
+
+
