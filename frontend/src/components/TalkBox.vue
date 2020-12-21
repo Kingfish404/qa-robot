@@ -252,7 +252,7 @@ export default {
    sendquestion() {
       var q=this.question;
       this.qa.push({questions:q,answers:""});
-      this.question=""
+      this.question="";
       axios({
         method: "post",
         url: "http://server.kingfish404.cn/msgAsk",

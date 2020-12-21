@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-<<<<<<< HEAD
       <div id="Wrapper">
           <div class="content">
             <div id="Leftbar"></div>
@@ -11,16 +10,6 @@
                   <TalkBox></TalkBox>
               </div>
               <div class="sep20"></div>
-=======
-    <div if="Top"><NavMenu></NavMenu></div>
-    <div id="Wrapper">
-      <div class="content">
-        <div id="Leftbar"></div>
-        <div id="Rightbar"></div>
-        <div id="Main">
-          <div class="box" id="BOX">
-            <TalkBox></TalkBox>
->>>>>>> fd69ef590105424f7682a895451764602a2ab2aa
           </div>
           <div class="sep20"></div>
         </div>
