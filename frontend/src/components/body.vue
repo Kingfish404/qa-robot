@@ -65,7 +65,7 @@ export default {
       this.question=""
       axios({
         method: "post",
-        url: "http://server.kingfish404.cn/msgAsk",
+        url: "https://pi.kingfish404.cn/robot/msgAsk",
         data: Qs.stringify({
           question: q,
         }),
