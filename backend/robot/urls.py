@@ -20,5 +20,7 @@ from . import views
 
 urlpatterns = [
     path('',views.index),
-    path('msgAsk',views.msgAsk)
+    path('msgAsk',views.msgAsk),
+    path('robot/',views.index),
+    path('robot/msgAsk',views.msgAsk)
 ]

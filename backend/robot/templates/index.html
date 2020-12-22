@@ -102,7 +102,7 @@
             xhr.onerror = function (e) {
                 console.error(xhr.statusText);
             };
-            xhr.open('POST', '/msgAsk', true);
+            xhr.open('POST', 'msgAsk', true);
             xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
             xhr.send("question=" + question);
             A.scrollTop = A.scrollHeight;
