@@ -12,7 +12,7 @@ npm install
 npm install axios
 npm install qs
 npm install element-ui
-npm install buefy
+npm install vue-happy-scroll
 ```
 
 ### 编译和重新加载
@@ -44,8 +44,8 @@ npm run lint
          |- index.htmll                           # 首页入口文件，你可以添加一些 meta 信息或统计代码啥的。
     |- src                                        # 这里是我们要开发的目录，基本上要做的事情都在这个目录里。里面包含了几个目录及文件：
          |- components                            # 目录里面放了一个组件文件
-             |- NavMenu.vue                       # 导航组件
-             |- TalkBox.vue                       # 对话框组件
+             |- body.vue                          # 聊天主体组件
+             |- leftbar.vue                       # 左侧导航组件
          |- App.vue                               # 项目入口文件
          |- main.js                               # 项目的核心文件
          |- router.js                             # 路由的设置文件
