@@ -11,6 +11,8 @@
     "axios": "^0.21.0",
     "core-js": "^3.6.5",
     "element-ui": "^2.14.1",
+    "js-audio-recorder": "^1.0.6",
+    "recorder-js": "^1.0.7",
     "vue": "^2.6.11"
   },
   "devDependencies": {
