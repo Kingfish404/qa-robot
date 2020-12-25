@@ -40,3 +40,38 @@ def msgAsk(request):
     response = JsonResponse(json)
     response['Access-Control-Allow-Origin'] = '*'
     return response
+
+@csrf_exempt
+def voiceToWord(request):
+    # pcm语音文件转文字返回
+    json = {"code": 0, "data": {"answer": ""}, "msg": ""}
+    answer = None
+    if(request.method == 'GET'):
+        json['code'] = 400
+        json['msg'] = "ERROR:请求方式错误"
+
+    elif(request.method == 'POST'):
+        json['code'] = 200
+        json['msg'] = "SUCCESS"
+
+        try:
+            # 主PCM处理函数
+
+            data = request.body
+
+            if(data!=None):
+                answer = utils.voiceToWord(data)
+            else:
+                # answer 为回复
+                answer = "No data"
+
+        except Exception as ex:
+            question = ex.message
+        
+        json["data"]['answer'] = answer
+    else:
+        json['code'] = 404
+        json['msg'] = "FAILD:未执行功能"
+    response = JsonResponse(json)
+    response['Access-Control-Allow-Origin'] = '*'
+    return response
