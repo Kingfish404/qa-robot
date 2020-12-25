@@ -37,17 +37,8 @@
     <div id="sendandvoice">
       <button @click="sendquestion()" class="sendbutton">发送</button>
       <!-- <el-button type="primary" class="sendbutton" @click="voice()" plain>录音</el-button> -->
-      <button @click="voice()" class="sendbutton">录音</button>
-      <button @click="play()" class="sendbutton">播放</button>
-      <button @click="download()" class="sendbutton">下载pcm</button>
-      <button @click="getmypost()" class="sendbutton">post请求</button>
-    </div>
-
-    <!-- 发送和录音按钮 -->
-    <div id="sendandvoice">
-      <button @click="sendquestion()" class="sendbutton">发送</button>
-      <!-- <el-button type="primary" class="sendbutton" @click="voice()" plain>录音</el-button> -->
-      <button class="sendbutton">录音</button>
+      <button @click="voice()" class="sendbutton" id="startvoice">说话</button>
+      <button @click="getmypost()" class="sendbutton" id="endvoice">结束</button>
     </div>
   </div>
 </template>
@@ -111,6 +102,8 @@ export default {
       recorder.start().then(
         () => {
           console.log("success");
+          document.getElementById("startvoice").style.display = "none";
+          document.getElementById("endvoice").style.display = "block";
         },
         (error) => {
           // 出错了
@@ -119,22 +112,23 @@ export default {
       );
     },
 
-    play() {
-      recorder.play();
-    },
-
-    download() {
-      this.pcm = recorder.getPCMBlob();
-      console.log("get pcm success");
-    },
 
     getmypost() {
+      //保存pcm格式
+      this.pcm = recorder.getPCMBlob();
+      console.log("get pcm success");
       axios({
           method: 'post',
           url: "https://pi.kingfish404.cn/robot/sendPcm",
           data : this.pcm
       }).then((res)=>{
         console.log(res);
+        this.question = res.data.data.answer[0];
+        console.log(this.question);
+        this.sendquestion();
+      }).then(()=>{
+        document.getElementById("endvoice").style.display = "none";
+        document.getElementById("startvoice").style.display = "block"; 
       });
     },
   },
@@ -261,5 +255,13 @@ button {
 .sendbutton {
   margin: 0 5px 0 5px;
   float: right;
+}
+
+#startvoice{
+  display: block;
+}
+
+#endvoice{
+  display: none;
 }
 </style>
