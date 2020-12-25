@@ -120,6 +120,7 @@ html,body{
 @media screen and (max-width: 760px) {
   #leftbar{
     display: none;
+ 
   }
   #talkbody{
     width: 100%;

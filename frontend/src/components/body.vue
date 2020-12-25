@@ -124,8 +124,7 @@ export default {
       }).then((res)=>{
         console.log(res);
         this.question = res.data.data.answer[0];
-        console.log(this.question);
-        this.sendquestion();
+        
       }).then(()=>{
         document.getElementById("endvoice").style.display = "none";
         document.getElementById("startvoice").style.display = "block"; 
