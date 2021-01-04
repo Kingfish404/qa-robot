@@ -24,6 +24,14 @@
           placeholder="请输入内容..."
         ></textarea>
       </div>
+
+      <div id="voiceshake">
+        <div class="recallingWrod animate__animated animate__swing animate__infinite	infinite animate__slower	0.1s">正</div>
+        <div class="recallingWrod animate__animated animate__swing animate__infinite	infinite animate__slower	0.2s">在</div>
+        <div class="recallingWrod animate__animated animate__swing animate__infinite	infinite animate__slower	0.1s">录</div>
+        <div class="recallingWrod animate__animated animate__swing animate__infinite	infinite animate__slower	0.2s">音</div>
+        <div class="recallingWrod animate__animated animate__swing animate__infinite	infinite animate__slower	0.1s">...</div>
+      </div>
     </div>
 
     <!-- 发送和录音按钮 -->
@@ -95,8 +103,10 @@ export default {
       recorder.start().then(
         () => {
           console.log("success");
+          document.getElementById("voiceshake").style.display = "block";
           document.getElementById("startvoice").style.display = "none";
           document.getElementById("endvoice").style.display = "block";
+          document.getElementById("inpute").style.display = "none";
         },
         (error) => {
           // 出错了
@@ -118,8 +128,10 @@ export default {
         console.log(res);
         this.question = res.data.data.answer[0];
       })
+      document.getElementById("voiceshake").style.display = "none";
       document.getElementById("endvoice").style.display = "none";
       document.getElementById("startvoice").style.display = "block"; 
+      document.getElementById("inpute").style.display = "block";
     },
   },
 
@@ -195,6 +207,10 @@ button {
   padding: 8px 16px;
 }
 
+.recallingWrod{
+  display: inline-block;
+}
+
 .left {
   float: left;
   text-align: left;
@@ -213,7 +229,9 @@ button {
 .inputbox {
   width: 100%;
   height: 12%;
+  background-color: white;
   border-left: 1px solid #eeeeee;
+  position: relative;
 }
 
 #inpute {
@@ -222,6 +240,17 @@ button {
   display: flex;
   align-items: center;
   float: left;
+  display: block;
+}
+
+#voiceshake{
+  margin:0 auto;
+  width:100%;
+  text-align: center;
+  position: absolute;
+  font-size: xx-large;
+  top:40%;
+  display: none;
 }
 
 #mytextarea {
@@ -229,7 +258,6 @@ button {
   height: 100%;
   padding: 0;
   border: 0;
-  padding: 1em;
   resize: none;
   outline: none;
   font-size: 15px;

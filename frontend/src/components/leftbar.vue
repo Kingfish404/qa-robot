@@ -1,19 +1,22 @@
 <template>
     <div>
-       
         <el-menu default-active="1-4-1" 
-        class="el-menu-vertical-demo" 
+        class="el-menu-vertical-demo"
         @open="handleOpen" 
         @close="handleClose" 
         background-color=""
-        :collapse="isCollapse">
+        :collapse="isCollapse"
+        :default-openeds="openeds"
+        >
             <el-submenu index="1">
                   <template slot="title">
                   <i class="el-icon-location"></i>
                   <span slot="title">基本功能</span>
                   </template>
                   <el-menu-item index="1-1">问病情</el-menu-item>
-                  <el-menu-item index="1-2">开始聊天</el-menu-item>        
+                  <el-menu-item index="1-2">问科室</el-menu-item>
+                  <el-menu-item index="1-3">问注意事项</el-menu-item>
+                  <el-menu-item index="1-4">开始聊天</el-menu-item>        
             </el-submenu>
 
             <el-submenu index="2">
@@ -38,6 +41,7 @@
   export default {
     data() {
       return {
+         openeds: ['1','2'],
         isCollapse: false
       };
     },

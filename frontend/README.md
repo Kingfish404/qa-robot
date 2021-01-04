@@ -12,7 +12,7 @@ npm install
 npm install axios
 npm install qs
 npm install element-ui
-npm install js-audio-recorder
+npm install animate.css --save
 ```
 
 ### 编译和重新加载
