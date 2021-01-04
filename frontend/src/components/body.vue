@@ -17,13 +17,6 @@
     <!-- 输入框 -->
     <div class="inputbox">
       <div id="inpute">
-        <!-- <el-input
-                  type="textarea"
-                  :rows="5"
-                  placeholder="请输入内容"
-                  @keyup.enter.native="sendquestion()"
-                  v-model="question">
-                </el-input> -->
         <textarea
           v-model="question"
           @keyup="messageSendlisten"
@@ -124,11 +117,9 @@ export default {
       }).then((res)=>{
         console.log(res);
         this.question = res.data.data.answer[0];
-        
-      }).then(()=>{
-        document.getElementById("endvoice").style.display = "none";
-        document.getElementById("startvoice").style.display = "block"; 
-      });
+      })
+      document.getElementById("endvoice").style.display = "none";
+      document.getElementById("startvoice").style.display = "block"; 
     },
   },
 
