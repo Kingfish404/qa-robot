@@ -16,6 +16,48 @@
   </noscript>
   <div id="app"></div>
   <!-- built files will be auto injected -->
+  <style>
+.msgcontents {
+  width: auto;
+  min-width: 30px;
+  min-height: 30px;
+  max-width: 50%;
+  height: auto;
+  word-break: break-all;
+  margin: 5px;
+  padding: 8px 16px;
+}
+
+.left {
+  float: left;
+  text-align: left;
+  background-color: white;
+  border-radius: 15px 15px 15px 5px;
+}
+
+.right {
+  float: right;
+  text-align: left;
+  color: white;
+  background-color: rgb(80, 75, 75);
+  border-radius: 15px 15px 5px 15px;
+}
+  </style>
+  <script>
+    function sendmsg1()
+    {
+        var oul = document.createElement("ul");
+        var oLi = document.createElement('div');
+        // oLi.addClass("msgcontents");
+        oLi.innerHTML="<li class='msgcontents left'>问病情<br/>\
+        可以通过 疾病名称+病因、预防进行查询<br/>\
+        如:<br/>\
+        感冒的原因有哪些？<br/>\
+        你好，我最近有一点发烧，还有一点咳嗽，还有一点头痛。如何预防感冒？</li>"
+        oul.appendChild(oLi);
+        document.getElementById("content").appendChild(oul);
+    }
+  </script>
 </body>
 
 </html>

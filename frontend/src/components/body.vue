@@ -3,6 +3,7 @@
     <!-- 对话框主体 -->
     <div id="content">
       <ul
+        id="aaul"
         v-for="QA in qa"
         v-bind:key="QA.counter"
         style="list-style: none; margin: 0; padding: 0; width: 100%"
@@ -159,6 +160,8 @@ export default {
 .happy-scroll-bar {
   height: 40px !important;
 }
+
+
 </style>
 
 <style scoped>
