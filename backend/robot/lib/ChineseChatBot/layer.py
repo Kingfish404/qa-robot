@@ -510,6 +510,9 @@ class MedicalSearch(BaseLayer):
             else:
                 name_list = '、'.join(name_result)
                 answer = f'根据描述，您可能的疾病为（输入疾病名称可查看其详细信息）：\n{name_list}'
+                if len(name_result) >10:
+                    answer += "\n（建议输入更多症状以缩小范围哦）"
+                    pass
             return answer
         return None
 

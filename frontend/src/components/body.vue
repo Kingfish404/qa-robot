@@ -66,7 +66,6 @@
     </div>
   </div>
 </template>
-
 <script>
 import axios from "axios";
 import Qs from "qs";
@@ -109,7 +108,7 @@ export default {
 
           // 文字转语音写在这里
           function btts(param, options) {
-            var url = "http://tsn.baidu.com/text2audio";
+            var url = "https://tsn.baidu.com/text2audio";
             var opt = options || {};
 
             // 如果浏览器支持，可以设置autoplay，但是不能兼容所有浏览器
