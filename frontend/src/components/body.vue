@@ -215,6 +215,7 @@ button {
 }
 
 .left {
+  clear: both;
   float: left;
   text-align: left;
   background-color: white;
@@ -222,6 +223,7 @@ button {
 }
 
 .right {
+  clear: both;
   float: right;
   text-align: left;
   color: white;

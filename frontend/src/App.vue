@@ -110,6 +110,7 @@ html,body{
     width: 20%;
     float: left;
     display:block;
+    user-select: none;
 }
 
 #talkbody{

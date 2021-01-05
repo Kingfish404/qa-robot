@@ -18,14 +18,14 @@
 感冒的原因有哪些？
 你好，我最近有一点发烧，还有一点咳嗽，还有一点头痛。
 如何预防感冒？">问病情</el-menu-item>
-                  <el-menu-item index="1-2" title="可以通过 疾病名称 + 科室进行查询
+                  <el-menu-item index="1-2" onclick="sendmsg2()" title="可以通过 疾病名称 + 科室进行查询
 如：
 感冒该挂哪科？">问科室</el-menu-item>
-                  <el-menu-item index="1-3" title="问注意事项
+                  <el-menu-item index="1-3" onclick="sendmsg3()" title="问注意事项
 可以通过 疾病名称+方向+注意事项进行查询
 如：
 感冒饮食有哪些注意事项">问注意事项</el-menu-item>
-                  <el-menu-item index="1-4" title="
+                  <el-menu-item index="1-4"  onclick="sendmsg4()" title="
 开始聊天
 你好，开始聊天吧">开始聊天</el-menu-item>        
             </el-submenu>
