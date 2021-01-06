@@ -25,7 +25,8 @@ AI聊天机器人项目，可以判断是语音还是文字，获取内容，内
 
 ## Lib
 
-* Chatterbot
+* Chatterbot  
+* bs4
 
 ## 待办事项
 
