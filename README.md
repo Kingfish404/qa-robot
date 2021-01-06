@@ -27,7 +27,8 @@ AI聊天机器人项目，可以判断是语音还是文字，获取内容，内
 
 * Chatterbot  
 * bs4  
-* jieba
+* jieba. 
+* seq2seq
 
 ## 待办事项
 
