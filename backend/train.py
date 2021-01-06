@@ -6,6 +6,5 @@ from chatterbot.trainers import ChatterBotCorpusTrainer
 trainer = ChatterBotCorpusTrainer(mybot)
 
 trainer.train(
-    "erkesets",
-    "waikesets"
+    "erkesets"
 )
