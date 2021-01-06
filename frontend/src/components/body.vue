@@ -27,11 +27,31 @@
       </div>
 
       <div id="voiceshake">
-        <div class="recallingWrod animate__animated animate__swing animate__infinite	infinite animate__slower	0.1s">正</div>
-        <div class="recallingWrod animate__animated animate__swing animate__infinite	infinite animate__slower	0.2s">在</div>
-        <div class="recallingWrod animate__animated animate__swing animate__infinite	infinite animate__slower	0.1s">录</div>
-        <div class="recallingWrod animate__animated animate__swing animate__infinite	infinite animate__slower	0.2s">音</div>
-        <div class="recallingWrod animate__animated animate__swing animate__infinite	infinite animate__slower	0.1s">...</div>
+        <div
+          class="recallingWrod animate__animated animate__swing animate__infinite infinite animate__slower 0.1s"
+        >
+          正
+        </div>
+        <div
+          class="recallingWrod animate__animated animate__swing animate__infinite infinite animate__slower 0.2s"
+        >
+          在
+        </div>
+        <div
+          class="recallingWrod animate__animated animate__swing animate__infinite infinite animate__slower 0.1s"
+        >
+          录
+        </div>
+        <div
+          class="recallingWrod animate__animated animate__swing animate__infinite infinite animate__slower 0.2s"
+        >
+          音
+        </div>
+        <div
+          class="recallingWrod animate__animated animate__swing animate__infinite infinite animate__slower 0.1s"
+        >
+          ...
+        </div>
       </div>
     </div>
 
@@ -40,23 +60,23 @@
       <button @click="sendquestion()" class="sendbutton">发送</button>
       <!-- <el-button type="primary" class="sendbutton" @click="voice()" plain>录音</el-button> -->
       <button @click="voice()" class="sendbutton" id="startvoice">说话</button>
-      <button @click="getmypost()" class="sendbutton" id="endvoice">结束</button>
+      <button @click="getmypost()" class="sendbutton" id="endvoice">
+        结束
+      </button>
     </div>
   </div>
 </template>
-
 <script>
 import axios from "axios";
 import Qs from "qs";
 import Recorder from "js-audio-recorder";
 
 const recorder = new Recorder({
-sampleBits: 16, // 采样位数，支持 8 或 16，默认是16
-sampleRate: 16000, // 采样率，支持 11025、16000、22050、24000、44100、48000，根据浏览器默认值，我的chrome是48000
-numChannels: 1, // 声道，支持 1 或 2， 默认是1
-// compiling: false,(0.x版本中生效,1.x增加中) // 是否边录边转换，默认是false
-})
-
+  sampleBits: 16, // 采样位数，支持 8 或 16，默认是16
+  sampleRate: 16000, // 采样率，支持 11025、16000、22050、24000、44100、48000，根据浏览器默认值，我的chrome是48000
+  numChannels: 1, // 声道，支持 1 或 2， 默认是1
+  // compiling: false,(0.x版本中生效,1.x增加中) // 是否边录边转换，默认是false
+});
 
 export default {
   data() {
@@ -84,6 +104,143 @@ export default {
           this.respond = Qs.parse(res.data);
           this.answer = this.respond.data.answer;
           this.qa[this.qa.length - 1].answers = this.answer;
+          console.log(this.answer);
+
+          // 文字转语音写在这里
+          function btts(param, options) {
+            var url = "https://tsn.baidu.com/text2audio";
+            var opt = options || {};
+
+            // 如果浏览器支持，可以设置autoplay，但是不能兼容所有浏览器
+            var audio = document.createElement("audio");
+            if (opt.autoplay) {
+              audio.setAttribute("autoplay", "autoplay");
+            }
+
+            // 隐藏控制栏
+            if (!opt.hidden) {
+              audio.setAttribute("controls", "controls");
+            } else {
+              audio.style.display = "none";
+            }
+
+            // 设置音量
+            if (typeof opt.volume !== "undefined") {
+              audio.volume = opt.volume;
+            }
+
+            // 调用onInit回调
+            isFunction(opt.onInit) && opt.onInit(audio);
+
+            // 默认超时时间60秒
+            var DEFAULT_TIMEOUT = 60000;
+            var timeout = opt.timeout || DEFAULT_TIMEOUT;
+
+            // 创建XMLHttpRequest对象
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", url);
+
+            // 创建form参数
+            var data = {};
+            for (var p in param) {
+              data[p] = param[p];
+            }
+
+            // 赋值预定义参数
+            data.cuid = data.cuid || data.tok;
+            data.ctp = 1;
+            data.lan = data.lan || "zh";
+            data.aue = data.aue || 3;
+
+            // 序列化参数列表
+            var fd = [];
+            for (var k in data) {
+              fd.push(k + "=" + encodeURIComponent(data[k]));
+            }
+
+            // 用来处理blob数据
+            var frd = new FileReader();
+            xhr.responseType = "blob";
+            xhr.send(fd.join("&"));
+
+            // 用timeout可以更兼容的处理兼容超时
+            var timer = setTimeout(function () {
+              xhr.abort();
+              isFunction(opt.onTimeout) && opt.onTimeout();
+            }, timeout);
+
+            xhr.onreadystatechange = function () {
+              if (xhr.readyState == 4) {
+                clearTimeout(timer);
+                if (xhr.status == 200) {
+                  if (xhr.response.type === "audio/mp3") {
+                    // 在body元素下apppend音频控件
+                    document.body.appendChild(audio);
+
+                    audio.setAttribute(
+                      "src",
+                      URL.createObjectURL(xhr.response)
+                    );
+
+                    // autoDestory设置则播放完后移除audio的dom对象
+                    if (opt.autoDestory) {
+                      audio.onended = function () {
+                        document.body.removeChild(audio);
+                      };
+                    }
+
+                    isFunction(opt.onSuccess) && opt.onSuccess(audio);
+                  }
+
+                  // 用来处理错误
+                  if (xhr.response.type === "application/json") {
+                    frd.onload = function () {
+                      var text = frd.result;
+                      isFunction(opt.onError) && opt.onError(text);
+                    };
+                    frd.readAsText(xhr.response);
+                  }
+                }
+              }
+            };
+
+            // 判断是否是函数
+            function isFunction(obj) {
+              if (Object.prototype.toString.call(obj) === "[object Function]") {
+                return true;
+              }
+              return false;
+            }
+          }
+
+          // 调用语音合成接口
+          // 参数含义请参考 https://ai.baidu.com/docs#/TTS-API/41ac79a6
+          let audio = btts(
+            {
+              tex: this.answer,
+              tok:
+                "24.ee8f6c336da1e847cb9e8c1a9da348b3.2592000.1611415416.282335-23183171",
+              spd: 5,
+              pit: 5,
+              vol: 15,
+              per: 4,
+            },
+            {
+              volume: 0.3,
+              autoDestory: true,
+              timeout: 10000,
+              hidden: false,
+              onInit: function (htmlAudioElement) {
+                audio = htmlAudioElement;
+              },
+              onSuccess: function (htmlAudioElement) {
+                audio = htmlAudioElement;
+                audio.play();
+              },
+              onTimeout: function () {
+              },
+            }
+          );
           this.answer = "";
         })
         .then(() => {
@@ -116,22 +273,21 @@ export default {
       );
     },
 
-
     getmypost() {
       //保存pcm格式
       this.pcm = recorder.getPCMBlob();
       console.log("get pcm success");
       axios({
-          method: 'post',
-          url: "https://pi.kingfish404.cn/robot/sendPcm",
-          data : this.pcm
-      }).then((res)=>{
+        method: "post",
+        url: "https://pi.kingfish404.cn/robot/sendPcm",
+        data: this.pcm,
+      }).then((res) => {
         console.log(res);
         this.question = res.data.data.answer[0];
-      })
+      });
       document.getElementById("voiceshake").style.display = "none";
       document.getElementById("endvoice").style.display = "none";
-      document.getElementById("startvoice").style.display = "block"; 
+      document.getElementById("startvoice").style.display = "block";
       document.getElementById("inpute").style.display = "block";
     },
   },
@@ -160,8 +316,6 @@ export default {
 .happy-scroll-bar {
   height: 40px !important;
 }
-
-
 </style>
 
 <style scoped>
@@ -210,7 +364,7 @@ button {
   padding: 8px 16px;
 }
 
-.recallingWrod{
+.recallingWrod {
   display: inline-block;
 }
 
@@ -248,13 +402,13 @@ button {
   display: block;
 }
 
-#voiceshake{
-  margin:0 auto;
-  width:100%;
+#voiceshake {
+  margin: 0 auto;
+  width: 100%;
   text-align: center;
   position: absolute;
   font-size: xx-large;
-  top:40%;
+  top: 40%;
   display: none;
 }
 
@@ -280,11 +434,11 @@ button {
   float: right;
 }
 
-#startvoice{
+#startvoice {
   display: block;
 }
 
-#endvoice{
+#endvoice {
   display: none;
 }
 </style>
