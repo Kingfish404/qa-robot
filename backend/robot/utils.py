@@ -6,16 +6,30 @@ Create Date:2020-12-13
 Change by: 2020-12-13 by JinYu 初始化项目
 '''
 import json
+import random
 from .lib.ChineseChatBot.chatbot import ChatBot
+from .lib.ChineseChatBot.filter import LayerFilter
+from .lib.chatterbot.chat import mybot
+from chatterbot.trainers import ListTrainer
+from chatterbot.trainers import ChatterBotCorpusTrainer
 import requests
 
 bot = ChatBot()
-
+my_layer = LayerFilter()
 
 def chatterBotRepeat(sQuestion):
     sAnswer = bot.repeat(sQuestion)
     return sAnswer
 
+# 调用chatterbot中的训练机器人来回答问题。
+# Create by ChengTong
+def myChatterBotRepeat(sQuestion):
+    sAnswer = mybot.get_response(sQuestion)
+    return str(sAnswer)
+
+def get_default_answer():
+    anslist = my_layer.get_default()
+    return random.choice(anslist)
 
 def searchBotRepeat(sQuestion):
     sAnswer = "多喝热水\n"+sQuestion

@@ -74,5 +74,5 @@ class LayerFilter:
             except Exception as e:
                 print(e)
 
-        # 如果最终没有答案，则随机选择默认答案输出
-        return choice(self.default_answers)
+        # 如果最终没有答案，返回0
+        return 0

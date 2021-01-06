@@ -9,6 +9,8 @@ sys.path.append(join(abspath(dirname(__file__)), ''))
 
 from filter import  LayerFilter
 
+
+
 class ChatBot:
 
     def __init__(self):

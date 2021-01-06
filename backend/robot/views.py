@@ -3,6 +3,7 @@ from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from . import utils
 
+
 # Create your views here.
 
 def index(request):
@@ -29,6 +30,12 @@ def msgAsk(request):
 
             # answer 为回复
             answer = utils.chatterBotRepeat(question)
+
+            if answer == 0:
+                answer = utils.myChatterBotRepeat(question)
+                answer = str(answer)
+            if answer == '0':
+                answer = utils.get_default_answer()
 
         except Exception as ex:
             question = ex.message

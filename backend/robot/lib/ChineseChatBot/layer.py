@@ -9,7 +9,7 @@ import logging
 import json
 import os
 import re
-
+import sys
 from bs4 import BeautifulSoup
 import numpy as np
 import jieba
